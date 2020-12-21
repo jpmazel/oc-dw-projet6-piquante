@@ -44,3 +44,10 @@ exports.createSauce = (req, res, next) => {
     .catch((error) => res.status(400).json({ error })); //équivalent de {error : error}
 
 };
+
+exports.getAllSauce = (req, res, next) => {
+  //utilisation de la méthode finf() pour avoir la liste complète
+  Sauce.find()
+    .then((lesObjets) => res.status(200).json(lesObjets))
+    .catch((error) => res.status(400).json({ error })); 
+}
