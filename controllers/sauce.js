@@ -51,3 +51,13 @@ exports.getAllSauce = (req, res, next) => {
     .then((lesObjets) => res.status(200).json(lesObjets))
     .catch((error) => res.status(400).json({ error })); 
 }
+
+exports.getOneSauce = (req, res, next) => {
+  //pour accéder à l'id   req.params.id
+  console.log("------------------------_id: req.params.id");
+  console.log({ _id: req.params.id });
+
+  Sauce.findOne({ _id: req.params.id })
+    .then((lObjet) => res.status(200).json(lObjet))
+    .catch((error) => res.status(404).json({ error }));
+};

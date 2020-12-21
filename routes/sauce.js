@@ -12,6 +12,8 @@ router.post("/", auth, multer, sauceControllers.createSauce);
 
 router.get("/",  auth, sauceControllers.getAllSauce);
 
+router.get("/:id",  auth, sauceControllers.getOneSauce);
+
 
 
 
