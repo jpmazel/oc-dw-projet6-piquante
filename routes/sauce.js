@@ -10,6 +10,8 @@ const sauceControllers = require("../controllers/sauce");
 //Route POST pour créer une sauce
 router.post("/", auth, multer, sauceControllers.createSauce);
 
+router.put("/:id", auth, multer, sauceControllers.modifySauce);
+
 router.delete("/:id",  auth, sauceControllers.deleteSauce);
 
 router.get("/",  auth, sauceControllers.getAllSauce);
