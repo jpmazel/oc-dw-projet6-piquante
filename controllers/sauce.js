@@ -61,3 +61,16 @@ exports.getOneSauce = (req, res, next) => {
     .then((lObjet) => res.status(200).json(lObjet))
     .catch((error) => res.status(404).json({ error }));
 };
+
+exports.deleteSauce = (req, res, next) => {
+  Sauce.findOne({ _id: req.params.id })
+  .then(sauce => {
+    const filename = sauce.imageUrl.split('/images/')[1];
+    fs.unlink(`images/${filename}`, () => {
+      Sauce.deleteOne({ _id: req.params.id })
+        .then(() => res.status(200).json({ message: `l'objet ${req.params.id} a été supprimé` }))
+        .catch((error) => res.status(404).json({ error }));
+    });
+  })
+  .catch(error => res.status(500).json({error}));  
+};
