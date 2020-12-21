@@ -9,7 +9,7 @@ const userController = require("../controllers/user");
 
 //les routes
 router.post("/signup", userController.signup);
-router.post("/login");
+router.post("/login", userController.login);
 
 
 //exportation
