@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 
 
-//pour enregistrer un nouvel utilisateur
+//SIGNUP pour enregistrer un nouvel utilisateur
 exports.signup = (req, res, next) => {
   //hasher le mot de passe
   bcrypt
@@ -27,7 +27,7 @@ exports.signup = (req, res, next) => {
 };
 
 
-//pour controler la validité de l'utilisateur
+//LOGIN pour controler la validité de l'utilisateur
 exports.login = (req, res, next) => {
   User.findOne({ email: req.body.email })
     .then((user) => {

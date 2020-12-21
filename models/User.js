@@ -8,6 +8,6 @@ const userSchema = mongoose.Schema({
   password: { type: String, required: true}
 });
 
-userSchema.plugin(uniqueValidator); // on applique la méthode plugin
+userSchema.plugin(uniqueValidator); // on applique la méthode plugin pour controler le mail
 
 module.exports = mongoose.model("User", userSchema);
