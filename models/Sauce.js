@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const sauceSchema = mongoose.Schema({
+const sauceSchema = mongoose.Schema({  
   userId: {type: String, required: true},
   name: {type: String, required: true},
   manufacturer: {type: String, required: true},//fabricant de la sauce
@@ -10,7 +10,7 @@ const sauceSchema = mongoose.Schema({
   heat: {type: Number, default: 0}, //nombre 1 à 10 décrivant la sauce
   likes: {type: Number, default: 0},
   dislikes :  {type: Number, default: 0},
-  userLiked : { type: [String] },
+  usersLiked : { type: [String] },
   usersDisliked: { type: [String] }
 });
 

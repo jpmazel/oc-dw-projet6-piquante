@@ -6,6 +6,7 @@ const auth = require('../middleware/auth');
 const multer = require('../middleware/multer-config');
 
 const sauceControllers = require("../controllers/sauce");
+const likeControllers = require("../controllers/like")
 
 //Route POST pour créer une sauce
 router.post("/", auth, multer, sauceControllers.createSauce);
@@ -17,6 +18,8 @@ router.delete("/:id",  auth, sauceControllers.deleteSauce);
 router.get("/",  auth, sauceControllers.getAllSauce);
 
 router.get("/:id",  auth, sauceControllers.getOneSauce);
+
+router.post("/:id/like" , auth, likeControllers.likeSauce);
 
 
 

@@ -8,10 +8,7 @@ exports.createSauce = (req, res, next) => {
 
   console.log("---CONTENU Sauce------------------------------");
   console.log(Sauce);
-
-  // console.log("contenu de req");
-  // console.log(req);
-
+  
   console.log("------CONTENU de req.body-------------------------");
   console.log(req.body);
 
@@ -20,7 +17,7 @@ exports.createSauce = (req, res, next) => {
 
   const sauceObject = JSON.parse(req.body.sauce);
 
-  console.log("-------CONTENU de sauceObject");  
+  console.log("-------CONTENU de sauceObject après JSON.parse");  
   console.log(sauceObject);
 
   delete sauceObject._id;
@@ -87,3 +84,7 @@ exports.deleteSauce = (req, res, next) => {
   })
   .catch(error => res.status(500).json({error}));  
 };
+
+
+
+
