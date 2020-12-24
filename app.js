@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('./db/db');
 const path = require('path');
+const mongoSanitize = require('express-mongo-sanitize');
 
 const userRoutes = require("./routes/user");
 const sauceRoutes = require("./routes/sauce");
@@ -26,6 +27,12 @@ app.use((req, res, next) => {
 //transformer le corps (le body) javascript en objet utilisable
 app.use(bodyParser.json());
 
+//protection injection sql
+app.use(mongoSanitize({
+  replaceWith: '_'
+}))
+
+//pour l'accés aux images
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 
