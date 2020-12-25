@@ -1,9 +1,14 @@
 //importer mongoose pour la base de donnée
 const mongoose = require('mongoose');
 
-//connection à la base de donnée mongoDB
+//importation pour utilisation des variables d'environnements
+const dotenv = require('dotenv');
+dotenv.config();
+
+
+//connection à la base de donnée mongoDB DB_NAME="projet6"
 mongoose.connect(
-  'mongodb+srv://dupon:36kDr2w6yJMak5qf@cluster0.7fts7.mongodb.net/projet6?retryWrites=true&w=majority',  
+  `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.7fts7.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`,  
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
