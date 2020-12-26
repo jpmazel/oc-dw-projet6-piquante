@@ -4,7 +4,11 @@ const jwt = require('jsonwebtoken');
 const cryptojs = require('crypto-js');
 //importation pour utilisation des variables d'environnements
 const dotenv = require('dotenv');
-// dotenv.config();
+const result = dotenv.config();
+if (result.error) {
+  throw result.error
+} 
+console.log(result.parsed);
 
 
 //SIGNUP pour enregistrer un nouvel utilisateur

@@ -3,7 +3,11 @@ const mongoose = require('mongoose');
 
 //importation pour utilisation des variables d'environnements
 const dotenv = require('dotenv');
-dotenv.config();
+const result = dotenv.config();
+if (result.error) {
+  throw result.error
+} 
+console.log(result.parsed);
 
 
 //connection à la base de donnée mongoDB DB_NAME="projet6"

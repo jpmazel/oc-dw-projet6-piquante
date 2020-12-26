@@ -58,6 +58,7 @@ Pour accéder aux sauces il faut **créer un compte** en cliquant sur **inscript
 - **jsonwebtoken**: authentification par token
 - **mongoose**: pour la base de donnée mongodb
 - **mongoose-unique-validator**: pour le controle du mail unique dans la base de donnée
+- **mongoSanitize** : protection injection sql
 - **morgan** : logger requête et response du sever
 - **multer** : pour l'upload de fichier
 - **nodemon** : pour relancer le serveur à chaque modification dans le code source
