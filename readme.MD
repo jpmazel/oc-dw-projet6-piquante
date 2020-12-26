@@ -1,5 +1,29 @@
 # Installation et mise en service du frontend et du backend
 
+## Backend
+-téléchargement du backend ici : https://github.com/jpmazel/oc-dw-projet6-piquante
+ou   
+`$ git clone https://github.com/jpmazel/oc-dw-projet6-piquante.git backend `
+
+`$ cd backend`
+
+après, avec le terminal dans le dossier racine du backend  
+
+`$ npm install `
+
+après, création du fichier `.env` à la racine du répertoire et y mettre les valeurs correctes pour se connecter à une base de donnée mongodb : 
+
+`DB_USERNAME="username de la base de donnée mongodb"`  
+`DB_PASSWORD="password de la base de donnée mongodb"`  
+`DB_NAME="nom de la base de donnée mongodb"`  
+`CRYPTOJS_RANDOM_SECRET_KEY = "RANDOM_SEcRET_KEY"`  
+`JWT_DECODEDTOKEN="RANDOM_TOKEN_SECRET"`  
+
+ou prendre le fichier `.en.example`, mettre les bonnes valeurs et modifier le nom du fichier en `.env`
+
+et après   
+`$ npm run start `
+
 ## FrontEnd
 -téléchargement du frontend ici : https://github.com/OpenClassrooms-Student-Center/dwj-projet6   
 ou  
@@ -18,25 +42,8 @@ avec le terminal dans le **dossier racine du frontend**
 
 Dans le navigateur mettre l'adresse : http://localhost:4200/
 
-## Backend
--téléchargement du backend ici : https://github.com/jpmazel/oc-dw-projet6-piquante
-ou   
-`$ git clone https://github.com/jpmazel/oc-dw-projet6-piquante.git backend `
+Pour accéder aux sauces il faut **créer un compte** en cliquant sur **inscription** et il faut mettre un **mot de passe fort** (minimum 8 caractères avec des **majuscules**, **minuscules** et **deux chiffres**)   
 
-`$ cd backend`
-
-après, avec le terminal dans le dossier racine du backend  
-
-`$ npm install `
-
-après, création du fichier `.env` à la racine du répertoire et y mettre les valeurs correctes pour se connecter à une base de donnée mongodb : 
-
-`DB_USERNAME="username de la base de donnée mongodb"`  
-`DB_PASSWORD="password de la base de donnée mongodb"`  
-`DB_NAME="nom de la base de donnée mongodb"`
-
-et après   
-`$ npm run start `
 
 **Note** :  des images de sauce piquante sont dans le dossier `images` pour faire des tests
 

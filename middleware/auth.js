@@ -1,4 +1,7 @@
 const jwt = require('jsonwebtoken');
+//importation pour utilisation des variables d'environnements
+const dotenv = require('dotenv');
+dotenv.config();
 
 module.exports = (req, res, next) => {
   try{
@@ -7,7 +10,7 @@ module.exports = (req, res, next) => {
     console.log("TOKEN");
     console.log(token);
 
-    const decodedToken = jwt.verify(token, "RANDOM_TOKEN_SECRET");
+    const decodedToken = jwt.verify(token, `${process.env.JWT_DECODEDTOKEN}`);
     console.log("decodedToken");
     console.log(decodedToken);
 

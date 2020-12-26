@@ -2,13 +2,16 @@ const bcrypt = require("bcrypt");
 const User = require("../models/User");
 const jwt = require('jsonwebtoken');
 const cryptojs = require('crypto-js');
+//importation pour utilisation des variables d'environnements
+const dotenv = require('dotenv');
+// dotenv.config();
 
 
 //SIGNUP pour enregistrer un nouvel utilisateur
 exports.signup = (req, res, next) => {
   console.log("--------------------req.body.password------------------------------");
   console.log(req.body.password);
-  const emailCryptoJs =  cryptojs.HmacSHA512(req.body.email, 'RANDOM_SEcRET_KEY').toString();
+  const emailCryptoJs =  cryptojs.HmacSHA512(req.body.email, `${process.env.CRYPTOJS_RANDOM_SECRET_KEY}`).toString();
   console.log("------------------emailCryptoJs----------------");
   console.log(emailCryptoJs);
   
@@ -34,7 +37,7 @@ exports.signup = (req, res, next) => {
 
 //LOGIN pour controler la validité de l'utilisateur
 exports.login = (req, res, next) => {
-  const emailCryptoJs =  cryptojs.HmacSHA512(req.body.email, 'RANDOM_SEcRET_KEY').toString();
+  const emailCryptoJs =  cryptojs.HmacSHA512(req.body.email, `${process.env.CRYPTOJS_RANDOM_SECRET_KEY}`).toString();
   //chiff2@test.com  - HmacSHA256 5e19b69c1ec96ce39c7bd7e8b425fdd9ba9a29eb3e551e8bb8108dda8b54f721
   //                              5e19b69c1ec96ce39c7bd7e8b425fdd9ba9a29eb3e551e8bb8108dda8b54f721
   //chiff3@test.com  - HmacSHA256 733b04fed6c2775a057f5dd2028ed70b8453c617bbe273a05938471451358a57
@@ -60,7 +63,7 @@ exports.login = (req, res, next) => {
             userId: user._id,
             token: jwt.sign(//3 arguments
               {userId: user._id},
-              'RANDOM_TOKEN_SECRET',
+              `${process.env.JWT_DECODEDTOKEN}`,
               {expiresIn: '24h'}
               )            
           });
