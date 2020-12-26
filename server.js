@@ -1,5 +1,12 @@
 const http = require('http'); // importation du package HTTP : $ npm install --save normalize-port
 const app = require('./app'); // importation du fichier .app : $ npm install errorhandler
+const dotenv = require('dotenv');
+
+const result = dotenv.config();
+if (result.error) {
+  throw result.error
+} 
+console.log(result.parsed);
 
 const normalizePort = val => {
   const port = parseInt(val, 10);

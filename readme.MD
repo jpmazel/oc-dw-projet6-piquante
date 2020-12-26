@@ -13,6 +13,7 @@ après, avec le terminal dans le dossier racine du backend
 
 après, création du fichier `.env` à la racine du répertoire et y mettre les valeurs correctes pour se connecter à une base de donnée mongodb : 
 
+`PORT = 3000` (le front fonctionne bien avec le backend sur le port 3000)  
 `DB_USERNAME="username de la base de donnée mongodb"`  
 `DB_PASSWORD="password de la base de donnée mongodb"`  
 `DB_NAME="nom de la base de donnée mongodb"`  
