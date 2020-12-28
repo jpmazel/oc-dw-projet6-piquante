@@ -1,5 +1,5 @@
-const http = require('http'); // importation du package HTTP : $ npm install --save normalize-port
-const app = require('./app'); // importation du fichier .app : $ npm install errorhandler
+const http = require('http'); 
+const app = require('./app'); 
 const dotenv = require('dotenv');
 
 const result = dotenv.config();

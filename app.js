@@ -1,6 +1,7 @@
 //importation des paquets
 const express = require ('express');
 const morgan = require('morgan');
+const cors = require('./middleware/cors');
 const bodyParser = require('body-parser');
 const mongoose = require('./db/db');
 const path = require('path');
@@ -12,17 +13,11 @@ const sauceRoutes = require("./routes/sauce");
 //déclaration des variables
 const app = express();
 
-//les app
-//logger
+//logger des requêtes et des réponses.
 app.use(morgan("dev"));
 
-//pour les problèmes de CORS-middleware générale-pas de route
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
-  next();
-});
+//pour les problèmes de CORS-middleware route générale
+app.use(cors);
 
 //transformer le corps (le body) javascript en objet utilisable
 app.use(bodyParser.json());
@@ -42,5 +37,5 @@ app.use("/api/auth", userRoutes);
 //les sauces
 app.use("/api/sauces", sauceRoutes);
 
-//Exporter l'application
+//Exporter la constante app (application express) pour pouvoir l'utiliser depuis d'autre fichier (pour le serveur node)
 module.exports = app;
