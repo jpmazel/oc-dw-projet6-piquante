@@ -55,7 +55,6 @@ Pour accéder aux sauces il faut **créer un compte** en cliquant sur **inscript
 - **dotenv** : pour l'utilisation des variables d'environnement
 - **express** : framework node.js pour faire la web api
 - **express-mongo-sanitize**: protection contre les injection sql
-- **fs** : pour accéder au dossier
 - **jsonwebtoken**: authentification par token
 - **mongoose**: pour la base de donnée mongodb
 - **mongoose-unique-validator**: pour le controle du mail unique dans la base de donnée
@@ -63,8 +62,6 @@ Pour accéder aux sauces il faut **créer un compte** en cliquant sur **inscript
 - **morgan** : logger requête et response du sever
 - **multer** : pour l'upload de fichier
 - **nodemon** : pour relancer le serveur à chaque modification dans le code source
-- **normalize** : 
-- **normalize-port** : 
 - **password-validator**: pour valider un mot de passe fort 
 
 
