@@ -1,5 +1,3 @@
-
-
 //gestion du CORS Cross Origin Ressource Sharing
 module.exports = (req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');

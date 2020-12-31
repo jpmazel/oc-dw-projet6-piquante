@@ -19,7 +19,7 @@ app.use(morgan("dev"));
 //pour les problèmes de CORS-middleware route générale
 app.use(cors);
 
-//transformer le corps (le body) javascript en objet utilisable
+//transformer le corps (le body)en json objet javascript utilisable
 app.use(bodyParser.json());
 
 //protection injection sql

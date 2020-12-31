@@ -1,6 +1,7 @@
+//importation
 const http = require('http'); 
 const app = require('./app'); 
-const dotenv = require('dotenv');
+const dotenv = require('dotenv');//variable d'environnement
 
 const result = dotenv.config();
 if (result.error) {
@@ -8,6 +9,7 @@ if (result.error) {
 } 
 console.log(result.parsed);
 
+//normalizePort
 const normalizePort = val => {
   const port = parseInt(val, 10);
 
@@ -22,6 +24,7 @@ const normalizePort = val => {
 const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
+//errorHandler
 const errorHandler = error => {
   if (error.syscall !== 'listen') {
     throw error;
@@ -42,6 +45,7 @@ const errorHandler = error => {
   }
 };
 
+//l'instance du serveur
 const server = http.createServer(app); //retourne une nouvelle instance de http
 
 server.on('error', errorHandler);

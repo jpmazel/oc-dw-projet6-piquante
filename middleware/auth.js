@@ -7,23 +7,26 @@ if (result.error) {
 } 
 console.log(result.parsed);
 
+
 module.exports = (req, res, next) => {
   try{
     //récupére le token dans le headers Authorization: Bearer token
-    const token = req.headers.authorization.split(' ')[1];
-    console.log("TOKEN");
+    const token = req.headers.authorization.split(' ')[1];//on récupére le 2eme élement du tableau qui est le token
+    console.log("--->middleware/auth.js CONTENU: TOKEN");
     console.log(token);
 
     const decodedToken = jwt.verify(token, `${process.env.JWT_DECODEDTOKEN}`);
-    console.log("decodedToken");
+    console.log("--->middleware/auth.js CONTENU: decodedToken");
     console.log(decodedToken);
 
     //récupérer le userId qu'il y a à l'intérieur
     const userId = decodedToken.userId
+    console.log("--->middleware/auth.js CONTENU: userId")
+    console.log(userId);
     if(req.body.userId && req.body.userId !== userId ){
       throw "User ID non valable"
     } else{
-      next();
+      next();//passer la requête au middleware suivant
     }
 
   } catch{

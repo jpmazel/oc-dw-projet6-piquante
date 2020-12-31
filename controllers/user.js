@@ -1,7 +1,9 @@
-const bcrypt = require("bcrypt");
-const User = require("../models/User");
-const jwt = require('jsonwebtoken');
-const cryptojs = require('crypto-js');
+//importations
+const bcrypt = require("bcrypt");//pour le hash du mot de passe dans la base de donnée
+const User = require("../models/User");//modèle de la base de donnée
+const jwt = require('jsonwebtoken');//le token d'authentification
+const cryptojs = require('crypto-js');//chiffrer déchiffrer l'email dans la base de donnée
+
 //importation pour utilisation des variables d'environnements
 const dotenv = require('dotenv');
 const result = dotenv.config();
@@ -13,21 +15,24 @@ console.log(result.parsed);
 
 //SIGNUP pour enregistrer un nouvel utilisateur
 exports.signup = (req, res, next) => {
-  console.log("--------------------req.body.password------------------------------");
+  console.log("--->controllers/user.js CONTENU: req.body.password");
   console.log(req.body.password);
+
+  //chiffrer l'email dans la base de donnée
   const emailCryptoJs =  cryptojs.HmacSHA512(req.body.email, `${process.env.CRYPTOJS_RANDOM_SECRET_KEY}`).toString();
-  console.log("------------------emailCryptoJs----------------");
+  console.log("--->controllers user.js CONTENU: emailCryptoJs");
   console.log(emailCryptoJs);
   
   //hasher le mot de passe
   bcrypt
-    .hash(req.body.password, 10)
+    .hash(req.body.password, 10)//salt = 10 -> combien de fois sera exécuté l'algorithme de hashage
     .then((hash) => {
+      //ce qui va être enregistré dans mongoDB
       const user = new User({
         email: emailCryptoJs,
         password: hash,
       });
-      //pour l'enregistrer dans la base de donnée
+      //l'enregistrer dans la base de donnée
       user
         .save()
         .then(() =>
@@ -42,22 +47,17 @@ exports.signup = (req, res, next) => {
 //LOGIN pour controler la validité de l'utilisateur
 exports.login = (req, res, next) => {
   const emailCryptoJs =  cryptojs.HmacSHA512(req.body.email, `${process.env.CRYPTOJS_RANDOM_SECRET_KEY}`).toString();
-  //chiff2@test.com  - HmacSHA256 5e19b69c1ec96ce39c7bd7e8b425fdd9ba9a29eb3e551e8bb8108dda8b54f721
-  //                              5e19b69c1ec96ce39c7bd7e8b425fdd9ba9a29eb3e551e8bb8108dda8b54f721
-  //chiff3@test.com  - HmacSHA256 733b04fed6c2775a057f5dd2028ed70b8453c617bbe273a05938471451358a57
-  //                   HmacSHA512 fd6a68cf7429671ffcf7a24d3aad1bfd23433c899e9662bf1e77bbb7742ae3de56c35a52bd74766092eb6aeb2ee52c848663386cefd5101060e0632decb51dd7
-
-  //azerTYUI12
-
+  
+  //chercher le mail de l'utilisateur chiffré dans la base de donnée s'il existe
   User.findOne({ email: emailCryptoJs })
     .then((user) => {
       if (!user) {
         return res.status(401).json({ error: "utilisateur inexistant" });
       }
-      //le user existe on utilise bcrypt pour comparer le mot de passe envoyé par l'utilisateur
-      //avec le hash qui est enregistré avec le user de la base de donnée
+      //le user existe on utilise la méthode compare( ) de bcrypt pour comparer le mot de passe  envoyé par l'utilisateur
+      //avec le hash qui est enregistré avec le user dans la base de donnée
       bcrypt
-        .compare(req.body.password, user.password) //fonction asynchrone retourne une promésse
+        .compare(req.body.password, user.password) //fonction asynchrone retourne une promise
         .then((valid) => {
           if (!valid) {
             //reçoit un booleean true ou false
@@ -66,9 +66,9 @@ exports.login = (req, res, next) => {
           res.status(200).json({
             userId: user._id,
             token: jwt.sign(//3 arguments
-              {userId: user._id},
-              `${process.env.JWT_DECODEDTOKEN}`,
-              {expiresIn: '24h'}
+              {userId: user._id},//user id
+              `${process.env.JWT_DECODEDTOKEN}`,//la clé de chiffrement du token
+              {expiresIn: '24h'}//le temps de validité du token
               )            
           });
         })

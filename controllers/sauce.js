@@ -1,32 +1,31 @@
 //importation
-const Sauce = require('../models/Sauce');
+const Sauce = require('../models/Sauce');//modèle de la base de donnée
 const fs = require('fs'); // accéder au système de fichier
 
 
 //logique métier
 exports.createSauce = (req, res, next) => {
-
-  console.log("---CONTENU Sauce------------------------------");
+  console.log("--->controllers/sauce.js CONTENU: Sauce");
   console.log(Sauce);
   
-  console.log("------CONTENU de req.body-------------------------");
+  console.log("--->controllers/sauce.js CONTENU de req.body");
   console.log(req.body);
 
-  console.log("------------CONTENU de req.body.sauce");  
+  console.log("--->controllers/sauce.js CONTENU de req.body.sauce");  
   console.log(req.body.sauce);
 
   const sauceObject = JSON.parse(req.body.sauce);
 
-  console.log("-------CONTENU de sauceObject après JSON.parse");  
+  console.log("--->controllers/sauce.js CONTENU de sauceObject après JSON.parse");  
   console.log(sauceObject);
 
-  delete sauceObject._id;
+  delete sauceObject._id;//
 
   const sauce = new Sauce({    
     ...sauceObject,
     imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
   });
-  console.log("-----CONTENU de l'OBJET sauce  : ");
+  console.log("--->controllers/sauce.js CONTENU de l'OBJET sauce  : ");
   console.log(sauce);
 
   //enregistrer l'objet dans la base de donné en appelant la méthode save
@@ -39,7 +38,6 @@ exports.createSauce = (req, res, next) => {
       })
     )
     .catch((error) => res.status(400).json({ error })); //équivalent de {error : error}
-
 };
 
 exports.modifySauce = (req, res, next) => {
@@ -54,9 +52,8 @@ exports.modifySauce = (req, res, next) => {
 };
 
 
-
 exports.getAllSauce = (req, res, next) => {
-  //utilisation de la méthode finf() pour avoir la liste complète
+  //utilisation de la méthode find() pour avoir la liste complète
   Sauce.find()
     .then((lesObjets) => res.status(200).json(lesObjets))
     .catch((error) => res.status(400).json({ error })); 
@@ -64,7 +61,7 @@ exports.getAllSauce = (req, res, next) => {
 
 exports.getOneSauce = (req, res, next) => {
   //pour accéder à l'id   req.params.id
-  console.log("------------------------_id: req.params.id");
+  console.log("--->controllers/sauce.js CONTENU: _id: req.params.id");
   console.log({ _id: req.params.id });
 
   Sauce.findOne({ _id: req.params.id })

@@ -1,19 +1,18 @@
 //importation
-const Sauce = require('../models/Sauce');
+const Sauce = require('../models/Sauce');//modèle de la base de donnée
 
 
-exports.likeSauce = (req, res, next) => {
-  
+exports.likeSauce = (req, res, next) => {  
   //contenu de la requête like dislike envoyé par le navigateur
   const sauceLikeObject = req.body;
-  console.log("////////////////CONTENU sauceLikeObject");
+  console.log("--->controllers/like.js CONTENU: sauceLikeObject");
   console.log(sauceLikeObject);  
 
   console.log(`userId : ${sauceLikeObject.userId}`);
   console.log(`like : ${sauceLikeObject.like}`);
 
   //sélection de la sauce (permet l'affichage des likes dislikes sur le front)
-  console.log("########CONTENU _id: req.params.id");
+  console.log("--->controllers/like.js CONTENU _id: req.params.id");
   console.log({ _id: req.params.id });
 
   Sauce.findOne({_id: req.params.id})
@@ -27,15 +26,15 @@ exports.likeSauce = (req, res, next) => {
         .catch((error) => {res.status(400).json({ error })});
       };      
 
-      console.log("****CONTENU du then sauce");
+      console.log("--->controllers/like.js CONTENU: du then sauce");
       console.log(sauce);
-      console.log("////////CONTENU sauce.usersLiked");
+      console.log("--->controllers/like.js CONTENU: sauce.usersLiked");
       console.log(sauce.usersLiked);
-      console.log("////////CONTENU sauce.usersDisliked");
+      console.log("--->controllers/like.js CONTENU: sauce.usersDisliked");
       console.log(sauce.usersDisliked);
-      console.log("////////CONTENU req.body.userId");
+      console.log("--->controllers/like.js CONTENU: req.body.userId");
       console.log(req.body.userId);   
-      console.log("CONTENU req.body.like");
+      console.log("--->controllers/like.js CONTENU: req.body.like");
       console.log(req.body.like);   
       
       //like = 0 (neutre pour les sauces qui ont été liké)
@@ -60,8 +59,7 @@ exports.likeSauce = (req, res, next) => {
         Sauce.updateOne({_id: req.params.id}, { $inc: {dislikes: -1}, $pull: {usersDisliked : req.body.userId}, _id: req.params.id})
         .then(() => res.status(201).json({ message: "sauce 0 like" }))
         .catch((error) => {res.status(400).json({ error })});
-      }     
-
+      }   
   })  
   .catch((error) => res.status(404).json({error}));
 };
