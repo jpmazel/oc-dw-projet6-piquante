@@ -10,6 +10,7 @@ if (result.error) {
 console.log(result.parsed);
 
 //normalizePort
+//fonction pour normaliser le port
 const normalizePort = val => {
   const port = parseInt(val, 10);
 
@@ -21,8 +22,11 @@ const normalizePort = val => {
   }
   return false;
 };
+
+//set le port
 const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
+
 
 //errorHandler
 const errorHandler = error => {
