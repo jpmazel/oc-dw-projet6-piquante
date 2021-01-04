@@ -1,11 +1,10 @@
 //importation des paquets
-const express = require ('express');
-const morgan = require('morgan');
-const cors = require('./middleware/cors');
-const bodyParser = require('body-parser');
-const mongoose = require('./db/db');
-const path = require('path');
-const mongoSanitize = require('express-mongo-sanitize');
+const express = require("express");
+const morgan = require("morgan");
+const bodyParser = require("body-parser");
+const mongoose = require("./db/db");
+const path = require("path");
+const mongoSanitize = require("express-mongo-sanitize");
 
 const userRoutes = require("./routes/user");
 const sauceRoutes = require("./routes/sauce");
@@ -16,20 +15,32 @@ const app = express();
 //logger des requêtes et des réponses.
 app.use(morgan("dev"));
 
-//pour les problèmes de CORS-middleware route générale
-app.use(cors);
+//pour les problèmes de CORS Cross-Origin Request Sharing
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, PATCH, OPTIONS"
+  );
+  next();
+});
 
 //transformer le corps (le body)en json objet javascript utilisable
 app.use(bodyParser.json());
 
 //protection injection sql
-app.use(mongoSanitize({
-  replaceWith: '_'
-}))
+app.use(
+  mongoSanitize({
+    replaceWith: "_",
+  })
+);
 
 //pour l'accés aux images
-app.use('/images', express.static(path.join(__dirname, 'images')));
-
+app.use("/images", express.static(path.join(__dirname, "images")));
 
 //l'authentification
 app.use("/api/auth", userRoutes);
